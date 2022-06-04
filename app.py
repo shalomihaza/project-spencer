@@ -2,7 +2,7 @@
 # Imports
 #----------------------------------------------------------------------------#
 
-import json
+
 import sys
 import dateutil.parser
 import babel
@@ -26,10 +26,10 @@ app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://postgres:001postgresqlmega
 
 db = SQLAlchemy(app)
 # db.init_app(app)
-# migrate = Migrate(app, db)
+migrate = Migrate(app, db)
 
 from models import Artist, Show, Venue
-db.create_all()
+# db.create_all()
 #----------------------------------------------------------------------------#
 # Models.
 #----------------------------------------------------------------------------#
@@ -102,15 +102,12 @@ def venues():
 def search_venues():
   search_term = request.form.get("search_term", "")
 
-  # response = {"total": 0, "data": []}
-
   venue_results = (
     db.session.query(Venue)
       .filter(Venue.name.ilike(f"%{search_term}%"))
       .all()
   )
 
-  # response["total"] = len(venue_results)
   result_item=[]
   for result in venue_results:
     item = {
@@ -136,12 +133,7 @@ def show_venue(venue_id):
     past_shows_data = []
     for show in past_shows_list:
       artist = Artist.query.get(show.artist_id)
-      # show_data = {
-      #   "artist_id": artist.id,
-      #   "artist_name": artist.name,
-      #   "artist_image_link": artist.image_link,
-      #   "start_time": str(show.start_time),
-      # }
+
       past_shows_data.append({
         "artist_id": artist.id,
         "artist_name": artist.name,
@@ -153,12 +145,7 @@ def show_venue(venue_id):
     upcoming_shows = []
     for show in upcoming_shows_list:
       artist = Artist.query.get(show.artist_id)
-      # show_data = {
-      #   "artist_id": artist.id,
-      #   "artist_name": artist.name,
-      #   "artist_image_link": artist.image_link,
-      #   "start_time": str(show.start_time),
-      # }
+
       upcoming_shows.append({
         "artist_id": artist.id,
         "artist_name": artist.name,
@@ -207,7 +194,7 @@ def create_venue_submission():
 
 
   try:
-    # Create model
+
     venue = Venue(
       name=request.form['name'],
       city=request.form['city'],
