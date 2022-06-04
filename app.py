@@ -25,11 +25,11 @@ app.config.from_object('config')
 app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://postgres:001postgresqlmega@localhost:5432/fyyur'
 
 db = SQLAlchemy(app)
-db.init_app(app)
-migrate = Migrate(app, db)
+# db.init_app(app)
+# migrate = Migrate(app, db)
 
 from models import Artist, Show, Venue
-
+db.create_all()
 #----------------------------------------------------------------------------#
 # Models.
 #----------------------------------------------------------------------------#
@@ -204,28 +204,7 @@ def create_venue_form():
 
 @app.route('/venues/create', methods=['POST'])
 def create_venue_submission():
-  # error = False
-  # form = VenueForm()
 
-  # Form validation
-  # if not form.validate():
-    # for fieldName, errorMessages in form.errors.items():
-    #   show_form_errors(fieldName, errorMessages)
-    #
-    # return redirect(url_for('create_venue_form'))
-
-  # Get data
-  name = request.form['name']
-  city = request.form['city']
-  state = request.form['state']
-  address = request.form['address']
-  phone = request.form['phone']
-  genres = request.form.getlist('genres')
-  image_link = request.form['image_link']
-  facebook_link = request.form['facebook_link']
-  website_link = request.form['website']
-  seeking_talent = True if 'seeking_talent' in request.form else False
-  seeking_description = request.form['seeking_description']
 
   try:
     # Create model
@@ -472,7 +451,7 @@ def create_artist_form():
 @app.route('/artists/create', methods=['POST'])
 def create_artist_submission():
   try:
-    # Create model
+
     artist = Artist(
       name=request.form['name'],
       city=request.form['city'],

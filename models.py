@@ -14,29 +14,29 @@ class Artist(db.Model):
     state = db.Column(db.String(150), nullable=False)
     phone = db.Column(db.String(150), nullable=False)
     genres = db.Column(db.String(150), nullable=False)
-    facebook_link = db.Column(db.String(300), nullable=False)
-    image_link = db.Column(db.String(500), nullable=False)
+    facebook_link = db.Column(db.String(300))
+    image_link = db.Column(db.String(1000))
 
-    website_link = db.Column(db.String(150), nullable=False)
+    website_link = db.Column(db.String(150))
     looking_for_venue = db.Column(db.Boolean, nullable=False, default=False)
     seeking_description = db.Column(db.String(150), nullable=False)
 
     shows = db.relationship('Show', backref='artists', lazy=True, cascade="all, delete-orphan")
 
-    # def __init__(self, name,  city, state, phone,genres,facebook_link, image_link, website_link,
-    #              looking_for_venue=False, seeking_description=""):
-    #     self.name = name
-    #     self.city = city
-    #     self.state = state
-    #     self.phone = phone
-    #     self.genres = genres
-    #     self.image_link = image_link
-    #
-    #     self.website_link = website_link
-    #     self.facebook_link = facebook_link
-    #     self.seeking_description = seeking_description
-    #     self.looking_for_venue = looking_for_venue
-    #
+    def __init__(self, name,  city, state, phone,genres,facebook_link, image_link, website_link,
+                 looking_for_venue=False, seeking_description=""):
+        self.name = name
+        self.city = city
+        self.state = state
+        self.phone = phone
+        self.genres = genres
+        self.image_link = image_link
+
+        self.website_link = website_link
+        self.facebook_link = facebook_link
+        self.seeking_description = seeking_description
+        self.looking_for_venue = looking_for_venue
+
     # def details(self):
     #     return {
     #         'id': self.id,
@@ -85,15 +85,33 @@ class Venue(db.Model):
     address = db.Column(db.String(150),nullable=False)
     phone = db.Column(db.String(150),nullable=False)
     genres = db.Column(db.String(150),nullable=False)
-    facebook_link = db.Column(db.String(300),nullable=False)
+    facebook_link = db.Column(db.String(300))
 
-    image_link = db.Column(db.String(500),nullable=False)
-    website_link = db.Column(db.String(150),nullable=False)
+    image_link = db.Column(db.String(1000))
+    website_link = db.Column(db.String(150))
     looking_for_talent = db.Column(db.Boolean, nullable=False, default=False)
     seeking_description = db.Column(db.String(150), nullable=False)
 
     # artists = db.relationship('Artist', secondary='shows')
     shows = db.relationship('Show', backref=('venues'))
+
+
+
+    def __init__(self, name,  city, state, address,phone,genres,facebook_link, image_link, website_link,
+                 looking_for_talent=False, seeking_description=""):
+        self.name = name
+        self.city = city
+        self.state = state
+        self.address = address
+
+        self.phone = phone
+        self.genres = genres
+        self.image_link = image_link
+
+        self.website_link = website_link
+        self.facebook_link = facebook_link
+        self.seeking_description = seeking_description
+        self.looking_for_talent = looking_for_talent
 
     # def to_dict(self):
     #     """ Returns a dictinary of vevenuesnues """
