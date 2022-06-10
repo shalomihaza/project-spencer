@@ -3,7 +3,6 @@
 #----------------------------------------------------------------------------#
 
 
-from models import Artist, Show, Venue
 import sys
 import dateutil.parser
 import babel
@@ -27,17 +26,19 @@ app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://postgres:001postgresqlmega
 
 db = SQLAlchemy(app)
 # db.init_app(app)
-# migrate = Migrate(app, db)
+migrate = Migrate(app, db)
 
-db.create_all()
+# db.create_all()
 #----------------------------------------------------------------------------#
 # Models.
 #----------------------------------------------------------------------------#
 
+from models import Artist, Show, Venue
 
 #----------------------------------------------------------------------------#
 # Filters.
 #----------------------------------------------------------------------------#
+
 
 def format_datetime(value, format='medium'):
     date = dateutil.parser.parse(value)
@@ -209,7 +210,7 @@ def create_venue_form():
 @app.route('/venues/create', methods=['POST'])
 def create_venue_submission():
     form = VenueForm(request.form)
-    print('form', form.name.data)
+    # print('form', form.name.data)
     try:
         print('venue')
 
