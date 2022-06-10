@@ -1,4 +1,4 @@
-Fyyur
+Project Spencer(Fyyur)
 -----
 
 ## Introduction
