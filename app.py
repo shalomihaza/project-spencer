@@ -3,6 +3,7 @@
 #----------------------------------------------------------------------------#
 
 
+from models import connect_db, Artist, Show, Venue
 import sys
 import dateutil.parser
 import babel
@@ -24,8 +25,9 @@ moment = Moment(app)
 app.config.from_object('config')
 app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://postgres:001postgresqlmega@localhost:5432/fyyur'
 
-db = SQLAlchemy(app)
-# db.init_app(app)
+db = connect_db(app)
+
+
 migrate = Migrate(app, db)
 
 # db.create_all()
@@ -33,7 +35,6 @@ migrate = Migrate(app, db)
 # Models.
 #----------------------------------------------------------------------------#
 
-from models import Artist, Show, Venue
 
 #----------------------------------------------------------------------------#
 # Filters.
