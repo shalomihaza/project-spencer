@@ -24,8 +24,7 @@ app = Flask(__name__)
 moment = Moment(app)
 app.config.from_object('config')
 # app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://postgres:001postgresqlmega@localhost:5432/fyyur'
-app.config['SQLALCHEMY_DATABASE_URI'] = 'postgres: // jjayhxgyhbnbfi: b92bc83d1b3d4284c53df6adf68d38d418ded025d4d9f66bbea43bf2f994f0ef@ec2-35-170-146-54.compute-1.amazonaws.com: 5432/d9v77n1pn9s0li
-'
+app.config['SQLALCHEMY_DATABASE_URI'] = 'postgres: // jjayhxgyhbnbfi: b92bc83d1b3d4284c53df6adf68d38d418ded025d4d9f66bbea43bf2f994f0ef@ec2-35-170-146-54.compute-1.amazonaws.com: 5432/d9v77n1pn9s0li'
 db = connect_db(app)
 
 
